@@ -4,7 +4,7 @@ using System.Collections;
 public class GameController : MonoBehaviour {
 
 	private float resetTimer = 2.0f;
-	private float startTimer = 2.0f;
+	private float startTimer = 0.0f;
 
 	private bool startKey = false;
 	private bool resetKey = false;

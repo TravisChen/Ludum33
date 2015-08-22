@@ -5,14 +5,17 @@ public class PulseGlow : MonoBehaviour {
 
 	public float pulseMin = 0.5f;
 	public float pulseMax = 0.75f;
-	public float pulseSpeed = 0.01f;
+	public float pulseSpeedMin = 0.01f;
+	public float pulseSpeedMax = 0.01f;
 
+	private float pulseSpeed;
 	private float currPulse;
 	private bool dir = true;
 
 	// Use this for initialization
 	void Start () {
 	
+		SetPulseSpeed();
 		SetShaderProperty( pulseMin );
 
 	}
@@ -25,6 +28,7 @@ public class PulseGlow : MonoBehaviour {
 			SetShaderProperty( currPulse += pulseSpeed );
 			if( currPulse >= pulseMax )
 			{
+				SetPulseSpeed();
 				dir = false;
 			}
 		}
@@ -33,10 +37,16 @@ public class PulseGlow : MonoBehaviour {
 			SetShaderProperty( currPulse -= pulseSpeed );
 			if( currPulse <= pulseMin )
 			{
+				SetPulseSpeed();
 				dir = true;
 			}
 		}
 
+	}
+
+	private void SetPulseSpeed()
+	{
+		pulseSpeed = Random.Range( pulseSpeedMin, pulseSpeedMax );
 	}
 
 	private void SetShaderProperty( float value )
