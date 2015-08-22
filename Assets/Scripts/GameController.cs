@@ -3,8 +3,6 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 
-	private int score = 0;
-	private float timer = 10.0f;
 	private float resetTimer = 2.0f;
 	private float startTimer = 2.0f;
 
@@ -13,12 +11,16 @@ public class GameController : MonoBehaviour {
 	private bool gameOver = false;
 	private bool gameStarted = false;
 
+	private PlayerController playerController;
+
 
 	// Use this for initialization
 	void Start () {
 
 		Cursor.visible = false;
 		Application.targetFrameRate = 60;
+
+		playerController = GameObject.FindWithTag( "PlayerController" ).GetComponent<PlayerController>();
 
 		RefManager.Instance.startUIContainer.gameObject.SetActive( false );
 		RefManager.Instance.gameUIContainer.gameObject.SetActive( false );
@@ -45,31 +47,19 @@ public class GameController : MonoBehaviour {
 
 		if( !gameStarted )
 		{
+			playerController.SetActivePlayer( false );
 			UpdateGameStart();
 			return;
 		}
-		
-		if( !gameOver && timer <= 0.0f )
-		{
-			gameOver = true;
-		}
-		
+
+		playerController.SetActivePlayer( true );
+
 		if( gameOver )
 		{
+			playerController.SetActivePlayer( false );
 			UpdateGameOver();
 			return;
 		}
-
-		// Set score
-		RefManager.Instance.scoreLabel.text = "" + score + "";
-
-		// Set time
-		System.TimeSpan timeSpan = System.TimeSpan.FromSeconds(timer);
-		string timerString = string.Format("{0:0}:{1:00}", timeSpan.Minutes, timeSpan.Seconds );
-		RefManager.Instance.timerLabel.text = timerString;
-
-		// Update time
-		timer -= Time.deltaTime;
 	}
 	
 	public void UpdateGameStart() {
