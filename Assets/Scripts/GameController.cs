@@ -3,12 +3,6 @@ using System.Collections;
 
 public class GameController : MonoBehaviour {
 
-	public GameObject startUIContainer;
-	public GameObject gameUIContainer;
-	public GameObject endUIContainer;
-	public TextMesh scoreLabel;
-	public TextMesh timerLabel;
-
 	private int score = 0;
 	private float timer = 10.0f;
 	private float resetTimer = 2.0f;
@@ -25,9 +19,9 @@ public class GameController : MonoBehaviour {
 		
 		Application.targetFrameRate = 60;
 
-		startUIContainer.gameObject.SetActive( false );
-		gameUIContainer.gameObject.SetActive( false );
-		endUIContainer.gameObject.SetActive( false );
+		RefManager.Instance.startUIContainer.gameObject.SetActive( false );
+		RefManager.Instance.gameUIContainer.gameObject.SetActive( false );
+		RefManager.Instance.endUIContainer.gameObject.SetActive( false );
 	}
 	
 	// Update is called once per frame
@@ -51,12 +45,12 @@ public class GameController : MonoBehaviour {
 		}
 
 		// Set score
-		scoreLabel.text = "" + score + "";
+		RefManager.Instance.scoreLabel.text = "" + score + "";
 
 		// Set time
 		System.TimeSpan timeSpan = System.TimeSpan.FromSeconds(timer);
 		string timerString = string.Format("{0:0}:{1:00}", timeSpan.Minutes, timeSpan.Seconds );
-		timerLabel.text = timerString;
+		RefManager.Instance.timerLabel.text = timerString;
 
 		// Update time
 		timer -= Time.deltaTime;
@@ -64,7 +58,7 @@ public class GameController : MonoBehaviour {
 	
 	public void UpdateGameStart() {
 
-		startUIContainer.gameObject.SetActive( true );
+		RefManager.Instance.startUIContainer.gameObject.SetActive( true );
 
 		if( !startKey )
 		{
@@ -78,16 +72,16 @@ public class GameController : MonoBehaviour {
 		startTimer -= Time.deltaTime;
 		if( startTimer < 0.0f )
 		{
-			startUIContainer.SetActive( false );
-			gameUIContainer.SetActive( true );
+			RefManager.Instance.startUIContainer.SetActive( false );
+			RefManager.Instance.gameUIContainer.SetActive( true );
 			gameStarted = true;
 		}
 	}
 	
 	public void UpdateGameOver() {
 
-		gameUIContainer.SetActive( false );
-		endUIContainer.SetActive( true );
+		RefManager.Instance.gameUIContainer.SetActive( false );
+		RefManager.Instance.endUIContainer.SetActive( true );
 
 		if( !resetKey )
 		{
