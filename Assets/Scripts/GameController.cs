@@ -16,17 +16,33 @@ public class GameController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+
+		Cursor.visible = false;
 		Application.targetFrameRate = 60;
 
 		RefManager.Instance.startUIContainer.gameObject.SetActive( false );
 		RefManager.Instance.gameUIContainer.gameObject.SetActive( false );
 		RefManager.Instance.endUIContainer.gameObject.SetActive( false );
 	}
+
+	void UpdateEscapeAndRestart()
+	{
+		if (Input.GetKey(KeyCode.Escape)) 
+		{
+			Application.Quit(); 
+		} 
+		
+		if (Input.GetKey(KeyCode.R)) 
+		{
+			Application.LoadLevel(Application.loadedLevel);
+		} 
+	}
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+		UpdateEscapeAndRestart();
+
 		if( !gameStarted )
 		{
 			UpdateGameStart();
