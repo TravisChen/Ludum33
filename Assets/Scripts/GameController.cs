@@ -61,6 +61,11 @@ public class GameController : MonoBehaviour {
 			return;
 		}
 	}
+
+	public void GameOver()
+	{
+		gameOver = true;
+	}
 	
 	public void UpdateGameStart() {
 
