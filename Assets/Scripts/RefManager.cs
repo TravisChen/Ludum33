@@ -10,6 +10,7 @@ public class RefManager : MonoBehaviour {
 	public GameObject endUIContainer;
 	public TextMesh scoreLabel;
 	public TextMesh timerLabel;
+	public Material fadeToBlack;
 
 	// Static singleton property
 	public static RefManager Instance { get; private set; }

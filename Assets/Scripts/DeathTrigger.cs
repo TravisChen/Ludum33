@@ -2,7 +2,9 @@
 using System.Collections;
 
 public class DeathTrigger : MonoBehaviour {
-	
+
+	public Exploder[] exploders;
+
 	// Use this for initialization
 	void Start () {
 	}
@@ -17,6 +19,11 @@ public class DeathTrigger : MonoBehaviour {
 		if( other.tag == "PlayerController" )
 		{
 			other.GetComponent<PlayerController>().Kill();
+
+			foreach( Exploder exploder in exploders )
+			{
+				exploder.Explode();
+			}
 		}
 
 	}
